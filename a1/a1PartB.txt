@@ -1,0 +1,83 @@
+(a)
+SELECT maker, speed FROM Product NATURAL JOIN Laptop
+WHERE hd >= 30
+
+(b)
+SELECT model, price FROM Product NATURAL JOIN PC WHERE maker = 'B'
+UNION
+SELECT model, price FROM Product NATURAL JOIN Laptop WHERE maker = 'B'
+UNION
+SELECT model, price FROM Product NATURAL JOIN Printer WHERE maker = 'B'
+
+(c)
+SELECT maker FROM Laptop NATURAL JOIN Product
+ EXCEPT
+SELECT maker FROM PC NATURAL JOIN Product
+
+(d)
+SELECT hd
+FROM PC
+GROUP BY hd
+HAVING COUNT(model) >= 2;
+
+(e)
+SELECT P1.model, P2.model 
+FROM PC P1, PC P2
+WHERE P1.model < P2.model AND P1.speed = P2.speed AND P1.ram = P2.ram 
+
+(f)
+SELECT maker FROM 
+(SELECT model FROM PC WHERE speed >= 3.0 
+UNION 
+SELECT model FROM Laptop WHERE speed >= 3.0)
+NATURAL JOIN Product
+GROUP BY maker
+HAVING COUNT(maker) >= 2
+
+(g)
+SELECT DISTINCT maker
+     FROM PC NATURAL JOIN Product
+     WHERE speed >= 3.0
+
+(h) 
+SELECT model FROM Printer 
+WHERE price = (SELECT MAX(price) FROM printer)
+
+(i)
+SELECT model FROM Laptop
+WHERE speed < (SELECT MIN(speed) FROM PC)
+
+(j)
+SELECT model FROM 
+(SELECT model, price FROM PC
+UNION 
+SELECT model, price
+FROM Laptop
+UNION 
+SELECT model, price
+FROM Printer)
+ORDER BY price DESC
+LIMIT 1
+
+(k)
+SELECT maker FROM(
+((SELECT model, price FROM Printer WHERE color = ¡°true¡±) 
+NATURAL JOIN 
+(SELECT MIN(price) AS price 
+FROM (SELECT model, price FROM Printer WHERE color = ¡°true¡±)))
+NATURAL JOIN Product)
+
+(l)
+SELECT DISTINCT maker
+FROM PC NATURAL JOIN Product
+WHERE speed = (SELECT MAX(speed) FROM PC)
+AND RAM = (SELECT MIN(RAM) FROM PC)
+
+(m)
+CREATE TABLE information AS
+    SELECT * FROM Laptop NATURAL JOIN Product
+    UNION
+    SELECT * FROM PC NATURAL JOIN Product
+    UNION
+SELECT type AS printer_type, model, color, price FROM Printer NATURAL JOIN Product
+

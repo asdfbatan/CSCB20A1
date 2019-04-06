@@ -1,0 +1,37 @@
+Mark breakdown
+
+1a) 3/4 - completly incorrect output and column names
+1b) 4/4
+1c) 4/4
+1d) 4/4
+1e) 4/4
+1f) 4/4
+1g) 1/5 - it is not clear what your query does, what is "γ", also you need to select from Classes too, and there is output
+1h) 5/5
+1i) 5/6 - you have to check that date 1 < date 2
+Total: 34/40
+Bonus: 5/5 - you should cross verify your sql output with your relational to make sure they match
+
+--------------------
+Total: 36/40
+2a) 2/2
+2b) 2/2
+2c) 2/2
+2d) 2/2
+2e) 2/2
+2f) 3/3
+2g) 3/3
+2h) 3/3
+2i) 0/3 - Incorrect data (missing all data). You should use WHERE EXISTS to select the ones where laptop speed is less than PC speed.
+2j) 3/3
+2k) 4/4
+2l) 5/5
+2m) 4/5 - SELECTs to the left and right of UNION do not have the same number of result columns. Has the right idea.
+
+
+--------------------
+Total: 5/5
+3) 5/5
+
+--------------------
+Assignment Total: 80.0/85

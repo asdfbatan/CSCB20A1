@@ -1,0 +1,46 @@
+(a)
+SELECT class, country
+FROM Classes
+WHERE bore >=16
+
+(b)
+SELECT name FROM Ships
+WHERE launched <1921
+
+(c)
+SELECT ship FROM Outcomes
+WHERE battle = "Denmark Strait" AND result = "sunk"
+
+(d)
+SELECT name FROM Classes NATURAL JOIN Ships
+WHERE launched >= 1921 AND displacement >= 35000
+
+(e)
+SELECT name, displacement, numGuns
+FROM classes, ships, outcomes
+WHERE classes.class = ships.class AND ships.name = outcomes.ship AND battle='Guadalcanal'
+
+(f)
+SELECT name AS shipname FROM ships 
+	UNION 
+SELECT ship AS shipname FROM outcomes
+
+(g)
+SELECT class FROM Ships 
+GROUP BY class
+HAVING COUNT(name)=1
+
+(h)
+SELECT country FROM Classes WHERE type='bb'
+  	  INTERSECT
+SELECT country FROM Classes  WHERE type='bc'
+
+(i)
+CREATE TABLE DamagedShips AS
+  SELECT battledate AS damagedate, ship AS name FROM Battles, Outcomes
+  WHERE Battles.name=Outcomes.battle AND Outcomes.result='damaged';
+
+SELECT DamagedShips.name FROM DamagedShips, Battles, Outcomes
+WHERE DamagedShips.name = Outcomes.ship AND 
+		Battles.name = Outcomes.battle AND
+		Battles.battledate > DamagedShips.damagedate; 
